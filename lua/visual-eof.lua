@@ -131,7 +131,7 @@ local function redraw_buf(bufnr)
     return
   end
   vim.api.nvim_buf_set_virtual_text(
-    0,
+    bufnr,
     ns,
     lc - 1,
     {{text, hl_name}},
