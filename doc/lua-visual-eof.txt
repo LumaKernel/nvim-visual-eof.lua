@@ -1,0 +1,117 @@
+*visual-eof.lua.txt*		Visualize existence of EOL at EOF
+
+Author : Luma <tomorinao.info@gmail.com>
+License: Unlicense <https://unlicense.org>
+Support: neovim 0.4.3 and Above
+
+==============================================================================
+CONTENTS				*visual-eof.luas-contents*
+
+                                      Type |gO| to see the table of contents.
+
+==============================================================================
+INTRODUCTION				*visual-eof.lua-introduction*
+
+*visual-eof.lua* is to visualize EOL (end of line) at EOF (end of file).
+You should set up like this.
+>
+    lua << EOF
+        require'visual-eof'.setup()
+    EOF
+<
+
+If buffer not saved, this shows whether EOL is added WHEN SAVED.
+If buffer already saved, this shows whether EOL is added AT REAL FILE.
+
+It's good idea to combine with |nofixeol|. With this, you can highly control
+EOL at EOF with |eol| and |noeol|.
+
+Note that it's not sensitive about |fileformat|.
+
+==============================================================================
+OPTIONS					*visual-eof.lua-options*
+
+These are the options, default values and descriptions.
+>
+    lua << EOF
+      require'visual-eof'.setup {
+        -- text for EOL
+        text_EOL        = ' ⏎';
+
+        -- text for absence of EOL
+        text_NOEOL      = ' ✗⏎';
+
+        -- highlight group name for EOL
+        hl_EOL          = 'VisualEOL';
+
+        -- highlight group name for absence of EOL
+        hl_NOEOL        = 'VisualNoEOL';
+
+        -- no setup autocmd
+        -- ( you can setup_autocmd() alone )
+        no_autocmd      = false;
+
+        -- exclude listed ft of buffer
+        ft_ng           = {
+          'startify',
+          'nerdtree',
+          'fern',
+          'fugitive.*',
+          'git.*',
+          'gina.*',
+        };
+
+        -- Used after ft_ng filtering
+        buf_filter      = function(bufnr)
+          return true
+        end;
+      }
+    EOF
+<
+
+The default highlight rules are like this.
+>
+  hi VisualEOL ctermfg=LightGreen guifg=LightGreen
+  hi VisualNoEOL ctermfg=Red guifg=Red
+<
+
+==============================================================================
+FUNCTIONS 				*visual-eof.lua-functions*
+
+You can combine below to customize flexibly.
+
+*visual-eof.setup()*
+-- setup({options} = `{}`)
+I recommend you to use `no_autocmd = true` if you want to customize in
+earnest. Anyway, you should run this before another function ran.
+
+*visual-eof.setup_autocmd()*
+-- setup_autocmd()
+Setup linking Vim events like file open to clean and redraw.
+
+*visual-eof.clean_buf()*
+-- clean_buf({bufnr})
+Cleans virtual text.
+
+*visual-eof.redraw_buf()*
+-- redraw_buf({bufnr})
+Update virtual text information.
+
+==============================================================================
+CHARACTERS 				*visual-eof.lua-characters*
+
+These are good for `text_EOL` and `text_NOEOL`, aren't they?
+>
+    '⏎'
+    '↵'
+    '✗'
+    '❌'
+    '❎'
+
+    -- ones from Nerd Fonts
+    ''
+    ''
+<
+
+==============================================================================
+vim:tw=78:ts=8:noet:ft=help:norl
