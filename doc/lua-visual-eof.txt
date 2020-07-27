@@ -23,10 +23,10 @@ You should set up like this.
 If buffer not saved, this shows whether EOL is added WHEN SAVED.
 If buffer already saved, this shows whether EOL is added AT REAL FILE.
 
-It's good idea to combine with |nofixeol|. With this, you can highly control
-EOL at EOF with |eol| and |noeol|.
+It's good idea to combine with |'nofixeol'|. With this, you can highly control
+EOL at EOF with |'eol'| and |'noeol'|.
 
-Note that it's not sensitive about |fileformat|.
+Note that it's not sensitive about |'fileformat'|.
 
 ==============================================================================
 OPTIONS					*visual-eof.lua-options*
