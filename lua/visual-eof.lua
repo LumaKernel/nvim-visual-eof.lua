@@ -159,7 +159,7 @@ local function make_option(default, extend)
 
   for k, v in pairs(extend) do
     if res[k] == nil then
-      echo_error( string.format(
+      echo_error(string.format(
         "Unknown option '%s'.",
         k
       ))
@@ -167,7 +167,7 @@ local function make_option(default, extend)
       if type(res[k]) == type(v) then
         res[k] = v
       else
-        echo_error( string.format(
+        echo_error(string.format(
           "Provide %s for option '%s'.",
           type(res[k]),
           k
