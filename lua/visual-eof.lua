@@ -20,7 +20,8 @@ local DEFAULT_OPTIONS = {
   -- ( you can setup_autocmd() alone )
   no_autocmd      = false;
 
-  -- exclude listed ft of buffer
+  -- exclude listed ft regex of buffer
+  -- regex is lua standard one
   ft_ng           = {
     'startify',
     'nerdtree',
