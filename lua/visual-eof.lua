@@ -66,7 +66,7 @@ local function is_buf_saved(bufnr)
     return false
   end
 
-  bufname = vim.fn.bufname(bufnr)
+  local bufname = vim.fn.bufname(bufnr)
   if vim.fn.filereadable(bufname) == 1 then
     return true
   end
