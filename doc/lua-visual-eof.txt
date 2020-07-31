@@ -2,7 +2,7 @@
 
 Author : Luma <tomorinao.info@gmail.com>
 License: Unlicense <https://unlicense.org>
-Support: neovim 0.4.3 and Above
+Support: neovim nightly and Above (for now)
 
 ==============================================================================
 CONTENTS				*visual-eof.lua-contents*
