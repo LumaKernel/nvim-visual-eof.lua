@@ -46,12 +46,6 @@ local function is_buf_auto_eol(bufnr)
     return false
   end
 
-  -- Vim saves zero byte file if there's no line.
-  local lc = vim.fn.getbufinfo(bufnr)[1].linecount
-  if lc == 1 and vim.fn.getbufline(bufnr, 1)[1] == '' then
-    return false
-  end
-
   return true
 end
 
