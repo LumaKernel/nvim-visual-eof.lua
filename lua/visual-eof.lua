@@ -207,7 +207,7 @@ end
 local function setup_autocmd()
   local cmd = vim.api.nvim_command
   redraw_vim = string.format(
-    'lua %s; if (%s) then %s end',
+    'lua %s; if (vim.fn.getcmdwintype() == \'\' and (%s)) then %s end',
     'require"visual-eof".clean_buf(vim.fn.bufnr())',
     'require"visual-eof".check_buf(vim.fn.bufnr())',
     'require"visual-eof".redraw_buf(vim.fn.bufnr())'
