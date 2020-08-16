@@ -1,8 +1,8 @@
 *lua-visual-eof.txt*		Visualize existence of EOL at EOF
 
-Author : Luma <tomorinao.info@gmail.com>
+Author : Luma <lumakernel@gmail.com>
 License: Unlicense <https://unlicense.org>
-Support: neovim nightly and Above (for now)
+Support: neovim 0.5.0 and Above
 
 ==============================================================================
 CONTENTS				*visual-eof.lua-contents*
