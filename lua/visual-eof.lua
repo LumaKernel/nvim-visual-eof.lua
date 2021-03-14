@@ -37,6 +37,17 @@ local DEFAULT_OPTIONS = {
   end;
 }
 
+local function echo_error(msg)
+  local cmd = vim.api.nvim_command
+  cmd('echohl Error')
+  cmd(string.format(
+    'echomsg "[%s] %s"',
+    plugin_name,
+    msg
+  ))
+  cmd('echohl None')
+end
+
 local function is_buf_auto_eol(bufnr)
   if not vim.api.nvim_buf_get_option(bufnr, 'eol')
       and (
@@ -73,7 +84,7 @@ end
 ---- buffer is not saved: when buffer is saved as a file
 local function buf_eoftype(bufnr)
   if is_buf_saved(bufnr) then
-    bufname = vim.fn.bufname(bufnr)
+    local bufname = vim.fn.bufname(bufnr)
     local lc = vim.fn.getbufinfo(bufnr)[1].linecount
     return #vim.fn.readfile(bufname, 'b') ~= lc
   else
@@ -82,9 +93,9 @@ local function buf_eoftype(bufnr)
 end
 
 local function check_buf(bufnr)
-  ft = vim.api.nvim_buf_get_option(bufnr, 'filetype')
+  local ft = vim.api.nvim_buf_get_option(bufnr, 'filetype')
 
-  for i, ng_pat in ipairs(options.ft_ng) do
+  for _, ng_pat in ipairs(options.ft_ng) do
     if ft:match(ng_pat) then
       return false
     end
@@ -111,9 +122,7 @@ local function redraw_buf(bufnr)
     return
   end
 
-  local line_cnt = vim.fn.line('$')
   local lc = vim.fn.getbufinfo(bufnr)[1].linecount
-  local name = vim.fn.bufname(bufnr)
   local eoftype = buf_eoftype(bufnr)
 
   local text = options.text_EOL
@@ -132,17 +141,6 @@ local function redraw_buf(bufnr)
     {{text, hl_name}},
     {}
   )
-end
-
-local function echo_error(msg)
-  local cmd = vim.api.nvim_command
-  cmd('echohl Error')
-  cmd(string.format(
-    'echomsg "[%s] %s"',
-    plugin_name,
-    msg
-  ))
-  cmd('echohl None')
 end
 
 local function make_option(default, extend)
@@ -200,17 +198,17 @@ end
 
 local function setup_autocmd()
   local cmd = vim.api.nvim_command
-  redraw_vim = string.format(
+  local redraw_vim = string.format(
     'lua %s; if (vim.fn.getcmdwintype() == \'\' and (%s)) then %s end',
     'require"visual-eof".clean_buf(vim.fn.bufnr())',
     'require"visual-eof".check_buf(vim.fn.bufnr())',
     'require"visual-eof".redraw_buf(vim.fn.bufnr())'
   )
-  hl_def_vim = string.format(
+  local hl_def_vim = string.format(
     'lua %s',
     'require"visual-eof".hl_default()'
   )
-  group_name = augroup(function()
+  local group_name = augroup(function()
     cmd(string.format(
       'autocmd %s %s %s',
       'TextChanged,TextChangedI,TextChangedP,BufWritePost,BufWinEnter',
@@ -241,7 +239,7 @@ local function setup(user_options)
   hl_default()
 
   redraw_buf(vim.fn.bufnr())
-  setup_autocmd(ns)
+  setup_autocmd()
 end
 
 return {
